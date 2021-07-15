@@ -1,0 +1,106 @@
+@import 'base/base';
+@import 'base/variables';
+@import 'base/mixins';
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('./fonts/Roboto-Regular.ttf');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('./fonts/Roboto-Bold.ttf');
+    font-weight: bold;
+}
+
+body {
+    padding: 50px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: $text_color;
+}
+.main {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.newUser {
+    width: 49%;
+    &__input {
+        @include box(100%, 37px);
+        margin: 10px 0 15px;
+        padding: 0 10px;
+        border: 1px solid $border_color;
+        border-radius: 4px;
+        outline: none;
+        color: $text_color;
+        font-size: 14px;
+        &:focus {
+            box-shadow: $shadow $blue_focus;
+        }
+    }
+}
+.users {
+    width: 49%;
+    margin-top: 20px;
+    tr {
+        height: 50px;
+        border-top: 1px solid $border_color;
+    }
+    th, td {
+        text-align: left;
+        padding-left: 12px;
+    }
+    th {
+        border-bottom: 2px solid $border_color;
+        font-weight: bold;
+    }
+}
+.btn {
+    height: 37px;
+    padding: 0 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    &_add {
+        border: 1px solid $green;
+        background-color: $bg_color;
+        color: $green;
+        &:hover {
+            background-color: $green;
+            color: $bg_color;
+        }
+        &:focus {
+            box-shadow: $shadow $green_focus;
+        }
+    }
+    &_edit {
+        background-color: $yellow;
+        color: $text_color;
+        &:hover {
+            background-color: $yellow_hover;
+        }
+        &:focus {
+            box-shadow: $shadow $yellow_focus;
+        }
+    }
+    &_delete {
+        background-color: $red;
+        color: $bg_color;
+        &:hover {
+            background-color: $red_hover;
+        }
+        &:focus {
+            box-shadow: $shadow $red_focus;
+        }
+    }
+}
+.red {
+    border: 1px solid $red;
+}
+.hide {
+    display: none;
+}
