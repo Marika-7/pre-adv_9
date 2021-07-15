@@ -8,10 +8,10 @@ class User {
         this._login = login;
     }
     public set password(password: string|RegExp) {
-        this.password = password;
+        this._password = password;
     }
     public set email(email: string|RegExp) {
-        this.email = email;
+        this._email = email;
     }
     public get login(): string|RegExp {
         return this._login;
