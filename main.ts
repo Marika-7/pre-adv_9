@@ -1,27 +1,3 @@
-//+ variables
-//? + class User
-//? + formUser
-//? + usersArray
-//? + userIndex
-//+ input
-//?  input.addEventListener('input', watchInput)
-//? + checkInput(field) - check input field; if false, add oninput; call setRed or deleteRed; get input; return true/false
-//?  watchInput(event) - check input of text to input field
-//?  checkAllInputs() - check all input fields; return true/false
-//? + setRed(field) - set red border; get input field
-//? + deleteRed(field) - delete red border; get input field
-//+ button
-//? + formUser.add.onclick = addUser
-//?  formUser.edit.onclick = saveEditUser
-//?  tbody.onclick  - call editUser() or deleteUser()
-//+ other
-//?  addUser() - create new User; clear input fields; call render()
-//?  render() - create table with data of users
-//?  deleteUser() - delete user from table; call render()
-//?  editUser() - get data of user; write the data to input fields; change button
-//?  saveEditUser() - save edit data of user; call render()
-
-//! variables
 class User {
     constructor(
         private _login: string|RegExp,
@@ -47,15 +23,15 @@ class User {
         return this._email;
     }
 }
-
+// variables
 let usersArray: User[] = [];
 let userIndex: number;
 
-//+ get form
+// get form
 const formUser: HTMLFormElement = document.forms[0];
 
-//! input
-//+ check input field; if false, add oninput; call setRed or deleteRed; get input; return true/false
+// input
+// check input field; if false, add oninput; call setRed or deleteRed; get input; return true/false
 function checkInput(field: HTMLInputElement): boolean {
     let objRegxp: User = new User(/^[a-zA-Z0-9]{4,16}$/, /^[\w_\-.]{4,16}$/, /^[a-z0-9_\-.]+@[a-z.]+\.[a-z]+$/);
     if(objRegxp[field.name].test(field.value)) {
@@ -70,14 +46,14 @@ function checkInput(field: HTMLInputElement): boolean {
     }
 }
 
-//+ check input of text to input field
+// check input of text to input field
 function watchInput(event: InputEvent):void {
     if(checkInput(event.target as HTMLInputElement)) {
         event.target.removeEventListener('input', watchInput);
     }
 }
 
-//+ check all input fields; return true/false
+// check all input fields; return true/false
 function checkAllInputs(): boolean {
     for(let i = 0; i < 3; i++) {
         if(!(checkInput(<HTMLInputElement>formUser[i]))) {
@@ -86,21 +62,21 @@ function checkAllInputs(): boolean {
     }
     return true;
 }
-//+ set red border; get input field
+// set red border; get input field
 function setRed(field: HTMLInputElement): void {
     field.classList.add('red');
 }
-//+ delete red border; get input field
+// delete red border; get input field
 function deleteRed(field: HTMLInputElement): void {
     field.classList.remove('red');
 }
 
-//! button
-//+ onclick functions
+// button
+// onclick functions
 formUser.add.onclick = addUser;
 formUser.edit.onclick = saveEditUser;
 
-//+ create new User; clear input fields
+// create new User; clear input fields
 function addUser(): void {
     if(!(checkAllInputs())) {
         return;
@@ -117,7 +93,7 @@ function addUser(): void {
     render();
 }
 
-//+ create table with data of users
+// create table with data of users
 function render(): void {
     document.querySelector('tbody').innerHTML = null;
     for(let i=0; i<usersArray.length; i++) {
@@ -144,19 +120,19 @@ function render(): void {
     }
 }
 
-//+ tbody.onclick - call editUser or deleteUser
+// tbody.onclick - call editUser or deleteUser
 document.querySelector('tbody').onclick = (event: MouseEvent) => 
     (event.target as HTMLButtonElement).classList.contains('btn_edit') ? editUser(event) : 
     (event.target as HTMLButtonElement).classList.contains('btn_delete') ? deleteUser(event) : 0 ;
 
-//+ delete user from table
+// delete user from table
 function deleteUser(event: MouseEvent) {
     let index: number = +(event.target as HTMLButtonElement).parentElement.parentElement.firstElementChild.textContent - 1;
     usersArray.splice(index, 1);
     render();
 }
 
-//+ get data of user, write the data to input fields, change button
+// get data of user, write the data to input fields, change button
 function editUser(event: MouseEvent) {
     userIndex = +(event.target as HTMLButtonElement).parentElement.parentElement.firstElementChild.textContent - 1;
     let user: User = usersArray[userIndex];
@@ -166,7 +142,7 @@ function editUser(event: MouseEvent) {
     formUser.add.classList.add('hide');
     formUser.edit.classList.remove('hide');
 }
-//+ save edit data of user
+// save edit data of user
 function saveEditUser(): void {
     if(!(checkAllInputs())) {
         return;
