@@ -31,16 +31,35 @@ let userIndex;
 const formUser = document.forms[0];
 function checkInput(field) {
     let objRegxp = new User(/^[a-zA-Z0-9]{4,16}$/, /^[\w_\-.]{4,16}$/, /^[a-z0-9_\-.]+@[a-z.]+\.[a-z]+$/);
-    return objRegxp[field.name].test(field.value);
+    if (objRegxp[field.name].test(field.value)) {
+        deleteRed(field);
+        return true;
+    }
+    else {
+        setRed(field);
+        field.addEventListener('input', watchInput);
+        field.focus();
+        return false;
+    }
+}
+function watchInput(event) {
+    if (checkInput(event.target)) {
+        event.target.removeEventListener('input', watchInput);
+    }
 }
 function checkAllInputs() {
     for (let i = 0; i < 3; i++) {
         if (!(checkInput(formUser[i]))) {
-            formUser[i].focus();
             return false;
         }
     }
     return true;
+}
+function setRed(field) {
+    field.classList.add('red');
+}
+function deleteRed(field) {
+    field.classList.remove('red');
 }
 formUser.add.onclick = addUser;
 formUser.edit.onclick = saveEditUser;
